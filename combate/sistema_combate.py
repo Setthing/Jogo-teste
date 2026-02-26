@@ -27,6 +27,25 @@ def iniciar_combate(jogador, inimigo):
             break
         # Turno do Inimigo
 
+        if "veneno" in inimigo["status"]:
+
+            dano_veneno = int(jogador["vida"] * 0.3)
+
+            inimigo["vida"] -= dano_veneno
+
+            print(f"O {inimigo['nome']} sofre {dano_veneno} de dano por causa do veneno!")
+            print(f"Vida do inimigo: {inimigo['vida']}\n")
+
+            inimigo["status"]["veneno"] -= 1
+
+            if inimigo["status"]["veneno"] <= 0:
+                del inimigo["status"]["veneno"]
+                print(f"O veneno no {inimigo['nome']} acabou!\n")
+
+        if inimigo["vida"] <= 0:
+            print (f"Parabéns! Você derrotou o {inimigo['nome']}!")
+            break
+
         fator = random.uniform(0.4, 0.9)
         dano_inimigo = int((inimigo["ataque"] - jogador["defesa"]) * fator)
         if dano_inimigo < 0: 
